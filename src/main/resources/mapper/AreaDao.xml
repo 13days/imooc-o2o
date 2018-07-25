@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.o2o.dao.AreaDao">
+    <!--resultType 可以理解为返回值-->
+    <select id="queryArea" resultType="com.imooc.o2o.entity.Area">
+        SELECT area_id,area_name,priority,create_time,last_edit_time
+        FROM tb_area
+        ORDER BY priority DESC
+    </select>
+</mapper>
+
+<!--
+//下面这些出自模板
+<mapper namespace="org.apache.ibatis.submitted.mapper_extend.ParentMapper">
+
+    <select id="getUserByName" resultType="org.apache.ibatis.submitted.mapper_extend.User">
+        select * from users where name = #{name}
+    </select>
+
+    <select id="getUserXML" resultType="org.apache.ibatis.submitted.mapper_extend.User">
+        select * from users where id = 1
+    </select>
+
+</mapper>-->
