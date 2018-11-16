@@ -14,7 +14,7 @@ public class Product {
     //缩略图地址
     private String imgAddr;
     //原价
-    private String normalProce;
+    private String normalPrice;
     //折扣价
     private String promotionPrice;
     //权重
@@ -65,12 +65,12 @@ public class Product {
         this.imgAddr = imgAddr;
     }
 
-    public String getNormalProce() {
-        return normalProce;
+    public String getNormalPrice() {
+        return normalPrice;
     }
 
-    public void setNormalProce(String normalProce) {
-        this.normalProce = normalProce;
+    public void setNormalPrice(String normalPrice) {
+        this.normalPrice = normalPrice;
     }
 
     public String getPromotionPrice() {
