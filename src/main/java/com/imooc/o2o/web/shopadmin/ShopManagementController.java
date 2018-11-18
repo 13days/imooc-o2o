@@ -172,7 +172,7 @@ public class ShopManagementController {
         }
     }
 
-    //获取店铺信息并展示到前端(供方法修改)
+    //获取店铺信息并展示到前端供方法修改
     @RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)
     @ResponseBody
     private Map<String, Object> getShopById(HttpServletRequest request) {

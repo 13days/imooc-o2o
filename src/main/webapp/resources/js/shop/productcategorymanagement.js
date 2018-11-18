@@ -17,7 +17,7 @@ $(function () {
                 dataList.map(function (item, index) {
                     tempHtml += ''
                         + '<div class="row row-product-category now">'
-                        + '<div class="col-33 product-category-name"> '
+                        + '<div class="col-33 product-category-name">'
                         + item.productCategoryName
                         + '</div>'
                         + '<div class="col-33">'
@@ -71,6 +71,8 @@ $(function () {
                     $.toast('新增信息成功');
                     //重新加载数据
                     getProductCategoryList();
+                    //调用上面方法之后刷新此页面
+                    location.reload()
                 }else{
                     $.toast('提交失败--'+data.errMsg);
                 }
@@ -83,13 +85,13 @@ $(function () {
     //temp
     $('.product-category-wrap').on('click','.row-product-category.temp .delete',function (e) {
         /*console.log($(this).parent().parent());*/
-        $(this).parent().parent(),remove();
+        $(this).parent().parent().remove();
     })
 
     //now
     $('.product-category-wrap').on('click','.row-product-category.now .delete',function (e) {
         var target = e.currentTarget;
-        $.confirm("确定么?",function () {
+        $.confirm("确定删除?",function () {
             $.ajax({
                 url:deleteUrl,
                 type:'POST',
@@ -99,11 +101,13 @@ $(function () {
                 dataType:'json',
                 success:function (data) {
                     if(data.success){
-                        $.toast('删除成功(ノω<。)ノ))');
+                        $.toast('删除成功√');
                         //重新加载数据
                         getProductCategoryList();
+                        //调用上面方法之后刷新此页面
+                        location.reload()
                     }else{
-                        $.toast('删除失败(┬＿┬)');
+                        $.toast('删除失败x');
                     }
                 }
             });

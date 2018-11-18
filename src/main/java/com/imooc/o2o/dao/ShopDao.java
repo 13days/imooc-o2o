@@ -32,7 +32,7 @@ public interface ShopDao {
 
 
     /**
-     *
+     * 单个店铺的获取
      * @param shopId
      * @return
      */

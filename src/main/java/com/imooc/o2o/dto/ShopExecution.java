@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @Author: Alex
  * @Date: created in 19:47  2018/6/13
- * @Annotation:此类封装了店铺信息和状态信息,涉及到电偶操作的都会返回这个对象
+ * @Annotation:此类封装了店铺信息和状态信息,涉及到店铺操作的都会返回这个对象
  */
 public class ShopExecution {
     //结果状态

@@ -26,9 +26,9 @@ public class Product {
     //商品状态 0.下架 1.在前端展示系统展示
     private Integer enableStatus;
 
-    //商品详情图片列表
+    //商品详情图片列表（一对多/一个商品对应多张详情图）
     private List<ProductImg> productImgList;
-    //商品类别
+    //商品类别/商品属于哪个商品类别的
     private ProductCategory productCategory;
     //商品是由哪个店铺发布的
     private Shop shop;

@@ -96,8 +96,9 @@ $(function () {
         var formData = new FormData();
         formData.append('shopImg', shopImg);
         formData.append('shopStr', JSON.stringify(shop));
-        var verifyCodeActual = $('#j_captcha').val();
 
+
+        var verifyCodeActual = $('#j_captcha').val();
         if (!verifyCodeActual) {
             $.toast("请输入验证码！");
             return;

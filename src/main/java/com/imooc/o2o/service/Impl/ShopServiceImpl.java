@@ -59,8 +59,10 @@ public class ShopServiceImpl implements ShopService {
                 if (shopImgInputStream != null && fileName != null && !"".equals(fileName)) {
                     Shop themShop = shopDao.queryByShopId(shop.getShopId());
                     if (themShop.getShopImg() != null) {
+                        //删除原有图片
                         ImageUtil.deleteFileOrPath(themShop.getShopImg());
                     }
+                    //添加新图片
                     addShopImg(shop, shopImgInputStream, fileName);
                 }
 
@@ -83,11 +85,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional
     public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
-        //空值判断（还需要对ShopCategory Area进行非空判断）
+
+        //空值判断（还需要对ShopCategory Area进行非空判断）//TO DO
         if (shop == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         }
-
 
         try {
             //给店铺信息赋初始值
