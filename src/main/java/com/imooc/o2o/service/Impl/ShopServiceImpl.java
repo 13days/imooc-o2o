@@ -1,6 +1,7 @@
 package com.imooc.o2o.service.Impl;
 
 import com.imooc.o2o.dao.ShopDao;
+import com.imooc.o2o.dto.ImageHolder;
 import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.enums.ShopStateEnum;
@@ -49,21 +50,21 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException {
+    public ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException {
         //判断店铺信息是否为空
         if (shop == null || shop.getShopId() == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         } else {
             try {
                 //1、判断是否需要处理图片
-                if (shopImgInputStream != null && fileName != null && !"".equals(fileName)) {
+                if (thumbnail.getImage() != null && thumbnail.getImageName() != null && !"".equals(thumbnail.getImageName())) {
                     Shop themShop = shopDao.queryByShopId(shop.getShopId());
                     if (themShop.getShopImg() != null) {
                         //删除原有图片
                         ImageUtil.deleteFileOrPath(themShop.getShopImg());
                     }
                     //添加新图片
-                    addShopImg(shop, shopImgInputStream, fileName);
+                    addShopImg(shop, thumbnail);
                 }
 
                 //2、更新店铺信息
@@ -84,7 +85,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
+    public ShopExecution addShop(Shop shop, ImageHolder thumbnail) {
 
         //空值判断（还需要对ShopCategory Area进行非空判断）//TO DO
         if (shop == null) {
@@ -102,10 +103,10 @@ public class ShopServiceImpl implements ShopService {
                 //抛出 终止事务执行    为何不用Exception？当且仅当抛出ShopOperationException，事务才能终止并回滚
                 throw new ShopOperationException("店铺创建失败");
             } else {
-                if (shopImgInputStream != null) {
+                if (thumbnail.getImage() != null) {
                     //存储图片
                     try {
-                        addShopImg(shop, shopImgInputStream, fileName);
+                        addShopImg(shop, thumbnail);
                     } catch (Exception e) {
                         throw new ShopOperationException("addShopImg error:" + e.getMessage());
                     }
@@ -123,10 +124,10 @@ public class ShopServiceImpl implements ShopService {
         return new ShopExecution(ShopStateEnum.CHECK, shop);
     }
 
-    private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
+    private void addShopImg(Shop shop, ImageHolder thumbnail) {
         //获取shop图片目录的相对值路径
         String dest = PathUtil.getShopImagePath(shop.getShopId());
-        String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream, dest, fileName);
+        String shopImgAddr = ImageUtil.generateThumbnail(thumbnail,dest);
         shop.setShopImg(shopImgAddr);
     }
 }

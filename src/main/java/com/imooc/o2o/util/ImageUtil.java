@@ -1,5 +1,6 @@
 package com.imooc.o2o.util;
 
+import com.imooc.o2o.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Position;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -34,12 +35,12 @@ public class ImageUtil {
      * @param targetAddr
      * @return
      */
-    public static String generateThumbnail(InputStream thumbnailInputStream, String targetAddr , String fileName){
+    public static String generateThumbnail(ImageHolder thumbanil, String targetAddr ){
 
         //获取文件的随机名
         String realFileName = getRandomFileName();
         //获取文件的扩展名
-        String extension = getFileExtension(fileName);
+        String extension = getFileExtension(thumbanil.getImageName());
 
         //随机名+扩展名 == 新文件的名字
         makeDirPath(targetAddr);
@@ -50,7 +51,7 @@ public class ImageUtil {
         //文件路径 = 根路径+相对路径
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         try{
-            Thumbnails.of(thumbnailInputStream).size(200,200)
+            Thumbnails.of(thumbanil.getImage()).size(200,200)
                     .watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath + "/watermark.jpg")),0.25f)
                             .outputQuality(0.8f).toFile(dest);
         }catch (IOException e){
@@ -58,6 +59,38 @@ public class ImageUtil {
         }
         return relativeAddr;
     }
+
+    /**
+     * 处理详情图，并返回新生成图片的相对路径值
+     * @param thumbanil
+     * @param targetAddr
+     * @return
+     */
+    public static String generateNormalImg(ImageHolder thumbanil, String targetAddr ){
+
+        //获取文件的随机名
+        String realFileName = getRandomFileName();
+        //获取文件的扩展名
+        String extension = getFileExtension(thumbanil.getImageName());
+
+        //随机名+扩展名 == 新文件的名字
+        makeDirPath(targetAddr);
+
+        //相对路径
+        String relativeAddr = targetAddr + realFileName + extension;
+
+        //文件路径 = 根路径+相对路径
+        File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+        try{
+            Thumbnails.of(thumbanil.getImage()).size(337,640)
+                    .watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath + "/watermark.jpg")),0.25f)
+                    .outputQuality(0.9f).toFile(dest);
+        }catch (IOException e){
+            throw new RuntimeException("创建缩略图失败："+e.toString());
+        }
+        return relativeAddr;
+    }
+
 
 
     /**

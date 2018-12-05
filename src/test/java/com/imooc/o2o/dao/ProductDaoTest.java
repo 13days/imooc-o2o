@@ -3,13 +3,16 @@ package com.imooc.o2o.dao;
 import com.imooc.o2o.BaseTest;
 import com.imooc.o2o.entity.Product;
 import com.imooc.o2o.entity.ProductCategory;
+import com.imooc.o2o.entity.ProductImg;
 import com.imooc.o2o.entity.Shop;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -77,4 +80,55 @@ public class ProductDaoTest extends BaseTest {
         effectedNum = productDao.insertProduct(product3);
         assertEquals(1,effectedNum);
     }
+
+    @Test
+    public void testCQueryProductByProductId() throws Exception{
+        long productId = 1;
+        //初始化两个商品详情图实例作为ProductId为1的商品下的详情图片
+        //批量插入到商品详情图表中
+        ProductImg productImg1 = new ProductImg();
+        productImg1.setImgAddr("Pic1");
+        productImg1.setImgDesc("Pic1 Addr");
+        productImg1.setPriority(1);
+        productImg1.setCreateTime(new Date());
+        productImg1.setProductId(productId);
+
+        ProductImg productImg2 = new ProductImg();
+        productImg2.setImgAddr("Pic2");
+        productImg2.setImgDesc("Pic2 Addr");
+        productImg2.setPriority(1);
+        productImg2.setCreateTime(new Date());
+        productImg2.setProductId(productId);
+
+        List<ProductImg> productImgList = new ArrayList<ProductImg>();
+        productImgList.add(productImg1);
+        productImgList.add(productImg2);
+        int effectedNum = productImgDao.batchInsertProductImg(productImgList);
+        assertEquals(2,effectedNum);
+        Product product = productDao.queryProductById(productId);
+        assertEquals(2,product.getProductImgList().size());
+        //删除新增两个商品的详情图案例
+        effectedNum = productImgDao.deleteProductImgByProductId(productId);
+        assertEquals(2,effectedNum);
+    }
+
+    @Test
+    public void testDUpdateProduct() throws Exception{
+        Product product = new Product();
+        ProductCategory pc = new ProductCategory();
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        pc.setProductCategoryId(1L);
+        product.setProductId(1L);
+        product.setShop(shop);
+        product.setProductName("一点点奶茶");
+        product.setProductCategory(pc);
+        //修改productId为1的商品的名称
+        //以及商品类别并校验影响的行数是否为1
+        int effectedNum = productDao.updateProduct(product);
+        assertEquals(1,effectedNum);
+    }
+
+
+
 }
