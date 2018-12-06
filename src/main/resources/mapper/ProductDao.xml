@@ -36,6 +36,68 @@
         </collection>
     </resultMap>
 
+    <update id="updateProductCategoryToNull" parameterType="Long">
+        UPDATE
+        tb_product
+        SET
+        product_category_id = null
+        WHERE
+        product_category_id = #{productCategoryId}
+    </update>
+
+    <select id="queryProductList" resultType="com.imooc.o2o.entity.Product">
+        SELECT
+        product_id,
+        product_name,
+        product_desc,
+        img_addr,
+        normal_price,
+        promotion_price,
+        priority,
+        create_time,
+        last_edit_time,
+        enable_status,
+        product_category_id,
+        shop_id
+        FROM
+        tb_product
+        <where>
+            <if test="productCondition.shop!=null and productCondition.shop.shopId!=null">
+                and shop_id=#{productCondition.shop.shopId}
+            </if>
+            <if test="productCondition.productCategory!=null and productCondition.productCategoryId!=null">
+                and product_category_id = #{productCondition.productCategory.productCategoryId}
+            </if>
+
+            <if test="productCondition.productName!=null">
+                and product_name like '%${productCondition.productName}%'
+            </if>
+            <if test="productCondition.productName!=null">
+                and enable_status = #{productCondition.enableStatus}
+            </if>
+        </where>
+        ORDER BY priority DESC
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+    
+    <select id="queryProductCount" resultType="int">
+        SELECT count(1) FROM tb_product
+        <where>
+            <if test="productCondition.shop!=null and productCondition.shop.shopId!=null">
+                and shop_id = #{productCondition.shop.shopId}
+            </if>
+            <if test="productCondition.productCategory !=null and productCondition.productCategory.productCategoryId!=null">
+                and product_category_id = #{productCondition.productCategory.productCategoryId}
+            </if>
+            <if test="productCondition.productName != null">
+                and product_name LIKE '%${productCondition.productName}%'
+            </if>
+            <if test="productCondition.enableStatus !=null">
+                and enable_status = #{productCondition.enableStatus}
+            </if>
+        </where>
+    </select>
+
     <update id="updateProduct" parameterType="com.imooc.o2o.entity.Product" keyProperty="product_id" useGeneratedKeys="true">
         UPDATE tb_product
         <set>
@@ -48,7 +110,7 @@
             <if test="priority != null">priority = #{priority},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
-            <if test="enableStatus != null ">enable_status = #{ena bleStatus},</if>
+            <if test="enableStatus != null ">enable_status = #{enableStatus},</if>
             <!-- 注意如果是引用的复杂对象的写法 -->
             <if test="productCategory != null and productCategory.productCategoryId != null ">product_category_id = #{productCategory.productCategoryId}</if>
         </set>

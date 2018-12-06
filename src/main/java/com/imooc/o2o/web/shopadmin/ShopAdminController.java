@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ShopAdminController {
 
 
+    @RequestMapping(value = "productmanagement",method = RequestMethod.GET)
+    public String productManagement(){
+        //转发至商品管理页面
+        return "shop/productmanagement";
+    }
+
     @RequestMapping(value = "/shopoperation")
     //转发至点铺注册/编辑页面
     public String shopOperation(){

@@ -82,6 +82,23 @@ public class ProductDaoTest extends BaseTest {
     }
 
     @Test
+    public void testBQueryProductList() throws Exception{
+        Product productCondition = new Product();
+        //分页查询 返回三条结果
+        List<Product> productsList = productDao.queryProductList(productCondition,0,3);
+        assertEquals(3,productsList.size());
+        //查询名称为测试的商品总数
+        int count = productDao.queryProductCount(productCondition);
+        assertEquals(5,count);
+        //使用商品名字模糊查询,预期返回3条结果
+        productCondition.setProductName("测");
+        productsList = productDao.queryProductList(productCondition,0,3);
+        assertEquals(0,productsList.size());
+        count = productDao.queryProductCount(productCondition);
+        assertEquals(3,count);
+    }
+
+    @Test
     public void testCQueryProductByProductId() throws Exception{
         long productId = 1;
         //初始化两个商品详情图实例作为ProductId为1的商品下的详情图片
@@ -127,6 +144,13 @@ public class ProductDaoTest extends BaseTest {
         //以及商品类别并校验影响的行数是否为1
         int effectedNum = productDao.updateProduct(product);
         assertEquals(1,effectedNum);
+    }
+
+    @Test
+    public void testEUpdateProductCategoryToNnull(){
+        //将productCategoryId为2的商品类别下面的商品的商品类别置为空
+        int effectedNum = productDao.updateProductCategoryToNull(27L);
+        assertEquals(2,effectedNum);
     }
 
 

@@ -70,7 +70,7 @@ $(function () {
 
     //针对商品详情图控件组，若该控件组最后一个元素发生了变化(即上传了图片)，
     //且控件总数未达到6个，则生成一个新的文件夹上传控件
-    $('.detail-img-div').on('change', '.detail-img:last-child', function () {
+    $('.detail-img-div').on('change','.detail-img:last-child', function () {
         if ($('.detail-img').length < 6) {
             $('#detail-img').append('<input type="file" class="detail-img">');
         }
@@ -86,8 +86,8 @@ $(function () {
             product.productName = $('#product-name').val();
             product.productDesc = $('#product-desc').val();
             product.priority = $('#priority').val();
-            product.normalPrice = $('#normal-Price').val();
-            product.promotionPrice = $('#promotion-Price').val();
+            product.normalPrice = $('#normal-price').val();
+            product.promotionPrice = $('#promotion-price').val();
             //获取选定的商品类别值
             product.productCategory = {
                 productCategoryId: $('#category').find('option').not(function () {

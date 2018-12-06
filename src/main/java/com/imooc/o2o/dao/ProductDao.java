@@ -13,6 +13,14 @@ import java.util.List;
 public interface ProductDao {
 
     /**
+     * 删除某商品之前，现将商品类别id设置为空
+     * @param productCategoryId
+     * @return
+     */
+    int updateProductCategoryToNull(long productCategoryId);
+
+
+    /**
      * 更新商品信息
      * @param product
      * @return
@@ -40,7 +48,9 @@ public interface ProductDao {
      * @param pageSize
      * @return
      */
-    List<Product> queryProductList(@Param("productCondition")Product productCondition,@Param("rowIndex")int rowIndex,@Param("pageSize")int pageSize);
+    List<Product> queryProductList(@Param("productCondition")Product productCondition,
+                                   @Param("rowIndex")int rowIndex,
+                                   @Param("pageSize")int pageSize);
 
     /**
      * 查询对应商品总数
