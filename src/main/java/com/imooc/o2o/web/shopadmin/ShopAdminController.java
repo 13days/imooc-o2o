@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "shopadmin",method = {RequestMethod.GET})
 public class ShopAdminController {
 
-
     @RequestMapping(value = "productmanagement",method = RequestMethod.GET)
     public String productManagement(){
         //转发至商品管理页面
