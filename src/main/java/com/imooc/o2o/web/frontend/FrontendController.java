@@ -13,6 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/frontend")
 public class FrontendController {
 
+    /**
+     * 商品列表页路由
+     * @return
+     */
+    @RequestMapping(value = "/shoplist",method = RequestMethod.GET)
+    private String showShopList(){
+        return "frontend/shoplist";
+    }
+
+
+    /**
+     * 首页路由
+     * @return
+     */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     private String index(){
         return "frontend/index";
