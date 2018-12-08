@@ -103,10 +103,14 @@ $(function () {
                 var total = $('.list-div .card').length;
                 //若总数达到跟按照此查询条件列出来的总数一致，则停止后台的加载
                 if (total >= maxItems) {
-                    //加载完毕，则注销无限加载事件，以防不必要的加载。
-                    $.detachInfiniteScroll($('.infinite-scroll'));
-                    //删除加载提示符
-                    $('.infinite-scroll-preloader').remove();
+                    // 加载完毕，则注销无限加载事件，以防不必要的加载
+                    //$.detachInfiniteScroll($('.infinite-scroll'));
+                    // 删除加载提示符
+                    //$('.infinite-scroll-preloader').remove();
+                    // 隐藏加载提示符
+                    $('.infinite-scroll-preloader').hide();
+                }else {
+                    $('.infinite-scroll-preloader').show();
                 }
 
                 //否则页码加1，继续load出新的店铺
@@ -168,7 +172,7 @@ $(function () {
     });
 
     //需要查询的店铺名字发生变化后，重置页码，清空原先的店铺列表，按照新的名字去查询
-    $('#search').on('input', function(e) {
+    $('#search').on('change', function(e) {
         shopName = e.target.value;
         $('.list-div').empty();
         pageNum = 1;
