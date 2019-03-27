@@ -14,6 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FrontendController {
 
     /**
+     * 商品详情页路由
+     * @return
+     */
+    @RequestMapping(value = "/productdetail",method = RequestMethod.GET)
+    private String shopProductDetail(){
+        return "frontend/productdetail";
+    }
+
+    /**
      * 店铺详情页路由
      * @return
      */
@@ -40,4 +49,5 @@ public class FrontendController {
     private String index(){
         return "frontend/index";
     }
+
 }

@@ -18,7 +18,38 @@ $(function () {
     }
 
     //获取需要编辑的商品的商品信息，并赋值给表单
-    function getInfo(productId) {
+    function getInfo(id) {
+        $.getJSON(infoUrl, function(data) {
+                    if (data.success) {
+                        var product = data.product;
+                        $('#product-name').val(product.productName);
+                        $('#product-desc').val(product.productDesc);
+                        $('#priority').val(product.priority);
+                        $('#normal-price').val(product.normalPrice);
+                        $('#promotion-price').val(product.promotionPrice);
+
+                        var optionHtml = '';
+                        var optionArr = data.productCategoryList;
+                        var optionSelected = product.productCategory.productCategoryId;
+                        optionArr
+                            .map(function(item, index) {
+                                var isSelect = optionSelected === item.productCategoryId ? 'selected'
+                                    : '';
+                                optionHtml += '<option data-value="'
+                                    + item.productCategoryId
+                                    + '"'
+                                    + isSelect
+                                    + '>'
+                                    + item.productCategoryName
+                                    + '</option>';
+                            });
+                        $('#category').html(optionHtml);
+                    }
+                });
+    }
+
+
+/*    function getInfo(productId) {
         $.getJSON(infoUrl, function (data) {
             if (data.success) {
                 //从返回的JSON中获取product对象的信息 渲染进表单中
@@ -28,6 +59,7 @@ $(function () {
                 $('#priority').val(product.priority);
                 $('#normal-price').val(product.normalPrice);
                 $('#promotion-price').val(product.promotionPrice);
+
                 //获取原本的商品类别以及该店铺的所有商品类别列表
                 var optionHtml = '';
                 var optionArr = data.productCategoryList;
@@ -46,7 +78,7 @@ $(function () {
                 $('#category').html(optionHtml);
             }
         });
-    }
+    }*/
 
 
     //为商品添加操作提供该店铺下的所有商品类别列表
