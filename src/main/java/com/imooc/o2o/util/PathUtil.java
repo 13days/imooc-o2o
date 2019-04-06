@@ -20,7 +20,7 @@ public class PathUtil {
         if(os.toLowerCase().startsWith("win")){
             basePath = "E:/all/projectdev/image/"; //根据自己的实际路径进行设置
         }else{
-            basePath = "/home/zdy/image/";  //根据自己的实际路径进行设置
+            basePath = "/Users/baidu/work/image";  //根据自己的实际路径进行设置
         }
 
         //更换分隔符
