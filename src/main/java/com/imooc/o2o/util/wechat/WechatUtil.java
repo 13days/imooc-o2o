@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imooc.o2o.dto.UserAccessToken;
 import com.imooc.o2o.dto.WechatUser;
+import com.imooc.o2o.entity.PersonInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,20 @@ import java.net.URL;
 public class WechatUtil {
 
     private static Logger log = LoggerFactory.getLogger(WechatUtil.class);
+
+    /**
+     * 将WechatUser里的信息转化成PersonInfo的信息并返回给PersonInfo实体类
+     * @param user
+     * @return
+     */
+    public static PersonInfo getPersonInfoFromRequest(WechatUser user){
+        PersonInfo personInfo = new PersonInfo();
+        personInfo.setName(user.getNickName());
+        personInfo.setGender(user.getSex()+"");
+        personInfo.setProfileImg(user.getHeadimgurl());
+        personInfo.setEnableStatus(1);
+        return personInfo;
+    }
 
     /**
      * 获取UserAccessToken实体类

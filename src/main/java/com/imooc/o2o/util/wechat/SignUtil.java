@@ -15,7 +15,7 @@ public class SignUtil{
     private static String token = "myo2o";
 
     /**
-     * 验证签名
+     * 验证签名，详情见微信开发者文档
      * @param signature
      * @param timestamp
      * @param nonce
