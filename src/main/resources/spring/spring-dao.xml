@@ -12,6 +12,7 @@
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
+                <!--<value>classpath:redis.properties</value>-->
             </list>
         </property>
         <!--指定文件的编码-->

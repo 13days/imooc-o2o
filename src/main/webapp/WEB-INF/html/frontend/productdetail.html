@@ -68,14 +68,23 @@
     <div class="panel-overlay"></div>
     <div class="panel panel-right panel-reveal" id="panel-right-demo">
         <div class="content-block">
-            <p>
-                <a href="/o2o/frontend/myrecord" class="close-panel">消费记录</a>
+            <!--<p>
+                <a href="#" class="close-panel">消费记录</a>
             </p>
             <p>
-                <a href="/o2o/frontend/mypoint" class="close-panel">我的积分</a>
+                <a href="#" class="close-panel">我的积分</a>
             </p>
             <p>
-                <a href="/o2o/frontend/pointrecord" class="close-panel">积分兑换记录</a>
+                <a href="#" class="close-panel">积分兑换记录</a>
+            </p>-->
+            <p>
+                <a href="/o2o/local/accountbind?usertype=1" class="close-panel">绑定账号</a>
+            </p>
+            <p>
+                <a href="/o2o/local/changepsw?usertype=1" class="close-panel">修改密码</a>
+            </p>
+            <p>
+                <a href="#" usertype="1" id="log-out" class="close-panel">退出系统</a>
             </p>
             <!-- Click on link with "close-panel" class will close panel -->
         </div>
@@ -93,5 +102,6 @@
         src='../resources/js/common/common.js' charset='utf-8'></script>
 <script type='text/javascript'
         src='../resources/js/frontend/productdetail.js' charset='utf-8'></script>
+<script type="text/javascript" src="../resources/js/local/logout.js" charset="UTF-8"></script>
 </body>
 </html>
